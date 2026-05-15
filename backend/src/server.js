@@ -1,25 +1,31 @@
-import app from "./app.js";
-import { prisma } from "./config/prisma.js";
+import express from "express";
+import tarefaRoutes from "./routes/tarefaRoutes.js";
 
+const app = express();
 const PORT = process.env.PORT || 3000;
 
-async function main() {
-  try {
-    await prisma.$connect();
-    console.log("Conexão bem-sucedida com o banco de dados!");
-  } catch (error) {
-    console.error("Erro ao conectar ao banco de dados:", error);
-    process.exit(1);
-  }
-}
+// Middleware
+app.use(express.json());
 
-process.on("SIGINT", async () => {
-  await prisma.$disconnect();
-  process.exit(0);
+// Rota raiz
+app.get("/", (req, res) => {
+  res.json({
+    mensagem: "API de tarefas funcionando!",
+    versao: "1.0.0",
+    arquitetura: "MVC"
+  });
 });
 
-main();
+// Rotas
+app.use(tarefaRoutes);
 
+// Inicia servidor
 app.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
+  console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
+});
+
+// Graceful shutdown
+process.on("SIGINT", () => {
+  console.log("\n⛔ Servidor encerrado");
+  process.exit(0);
 });

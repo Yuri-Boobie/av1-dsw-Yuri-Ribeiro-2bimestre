@@ -19,27 +19,27 @@ const router = express.Router();
 /**
  * GET /tarefas - Lista todas as tarefas
  */
-router.get("/tarefas", TarefaController.listarTarefas);
+router.get("/tarefas", TarefaController.listar);
 
 /**
- * GET /tarefas/:id - Obtém uma tarefa específica
+ * GET /tarefas/:id - Busca uma tarefa específica pelo ID
  */
-router.get("/tarefas/:id", TarefaController.obterTarefa);
+router.patch("/tarefas/:id", TarefaController.buscarPorId);
 
 /**
  * POST /tarefas - Cria uma nova tarefa
  */
-router.post("/tarefas", TarefaController.criarTarefa);
+router.post("/tarefas", TarefaController.criar);
 
 /**
- * PATCH /tarefas/:id - Atualiza uma tarefa parcialmente
+ * PUT /tarefas/:id - Atualiza uma tarefa
  */
-router.patch("/tarefas/:id", TarefaController.atualizarTarefa);
+router.put("/tarefas/:id", TarefaController.atualizar);
 
 /**
- * DELETE /tarefas/:id - Remove uma tarefa
+ * DELETE /tarefas/:id - Exclui uma tarefa
  */
-router.delete("/tarefas/:id", TarefaController.excluirTarefa);
+router.delete("/tarefas/:id", TarefaController.excluir);
 
 // Exporta o roteador para ser usado no app principal
 export default router;
